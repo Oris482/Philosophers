@@ -6,12 +6,13 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 19:04:01 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/07/21 11:22:26 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/07/21 18:17:18 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+#CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -g
 LDFLAGS = -fsanitize=thread -g
 RM = rm -f
 
@@ -19,7 +20,10 @@ NAME = philo
 
 HEADER_DIR = .
 HEADER = $(HEADER_DIR)/philo.h
-SRCS_FILES = philo.c
+SRCS_FILES = philo.c	\
+				parser.c	\
+				thread_function.c	\
+				utils.c
 SRCS_DIR = .
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS_DIR = objs/
