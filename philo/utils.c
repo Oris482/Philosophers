@@ -6,11 +6,21 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:54:37 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/21 19:01:45 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:29:50 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
+
+void	smart_sleep(size_t delay)
+{
+	struct timeval	begin;
+
+	gettimeofday(&begin, NULL);
+	while (42)
+		if (get_timestamp(begin) >= delay)
+			return ;
+}
 
 time_t	get_timestamp(struct timeval begin)
 {
@@ -34,12 +44,18 @@ int	exit_with_msg(int err_code, char *err_msg, t_philo *philos, t_fork *forks)
 	return (err_code);
 }
 
-void	print_message(t_philo_args *arg, char *msg)
+int	print_message(t_philo_args *arg, char *msg)
 {
 	time_t	timestamp;
 
 	pthread_mutex_lock(&arg->simul_info->mutex);
+	if (arg->simul_info->finish_flag == FINISH)
+	{
+		pthread_mutex_unlock(&arg->simul_info->mutex);
+		return (FINISH);
+	}
 	timestamp = get_timestamp(arg->simul_info->begin);
-	printf("%ld %lu %s\n", timestamp, arg->my_num + 1, msg);
+	printf("%ld %lu %s\n", timestamp, arg->my_num, msg);
 	pthread_mutex_unlock(&arg->simul_info->mutex);
+	return (SUCCESS);
 }

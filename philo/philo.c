@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:02:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/21 19:51:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:28:44 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	make_philos(t_philo *philos, t_fork *forks, t_simul_info *simul_info)
 	idx = 0;
 	while (idx < num_philos)
 	{
-		philos[idx].args.my_num = idx;
+		philos[idx].args.my_num = idx + 1;
 		philos[idx].args.simul_info = simul_info;
 		philos[idx].args.fork[LEFT] = &forks[idx];
 		philos[idx].args.fork[RIGHT] = &forks[(idx + 1) % num_philos];
-		simul_info->dead_flag = pthread_create(&philos[idx].thread_id, NULL, \
+		simul_info->finish_flag = pthread_create(&philos[idx].thread_id, NULL, \
 			run_philo, &philos[idx].args);
-		if (simul_info->dead_flag != SUCCESS)
+		if (simul_info->finish_flag != SUCCESS)
 			return (ERROR);
 		idx++;
 	}
@@ -64,9 +64,9 @@ int	main(int argc, char *argv[])
 	pthread_mutex_init(&simul_info.mutex, NULL);
 	pthread_mutex_lock(&simul_info.mutex);
 	if (make_philos(philos, forks, &simul_info) == ERROR)
-		exit_with_msg(simul_info.dead_flag, "Error : thread_create\n", \
+		exit_with_msg(simul_info.finish_flag, "Error : thread_create\n", \
 						philos, forks);
 	gettimeofday(&simul_info.begin, NULL);
-	pthread_mutex_unlock(&simul_info.mutex);
+	moniter_philos(philos, &simul_info);
 	return (wait_join_threads(philos, forks, &simul_info));
 }

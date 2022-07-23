@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:03:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/21 19:48:14 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:00:55 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define ERROR -1
 # define SUCCESS 0
 # define ERRORUL -1UL
+
+# define CONTINUE 0
+# define FINISH 1
 
 # define ULMAX 18446744073709551615UL
 # define ULMAXHEAD 1844674407370955161UL
@@ -55,7 +58,8 @@ typedef struct s_simul_info
 {
 	pthread_mutex_t	mutex;
 	t_option		option;
-	int				dead_flag;
+	int				finish_flag;
+	size_t			full_count;
 	struct timeval	begin;
 }	t_simul_info;
 
@@ -69,6 +73,7 @@ typedef struct s_philo_args
 {
 	size_t				my_num;
 	size_t				eat_counter;
+	struct timeval		last_meal;
 	t_fork				*fork[2];
 	t_simul_info		*simul_info;
 }	t_philo_args;
@@ -85,6 +90,8 @@ int		exit_with_msg(int err_code, char *err_msg, \
 						t_philo *philos, t_fork *forks);
 void	*run_philo(void *args);
 time_t	get_timestamp(struct timeval begin);
-void	print_message(t_philo_args *arg, char *msg);
+int		print_message(t_philo_args *arg, char *msg);
+void	smart_sleep(size_t delay);
+void	moniter_philos(t_philo *philos, t_simul_info *simul_info);
 
 #endif
