@@ -6,7 +6,7 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 19:04:01 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/07/23 21:35:33 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/07/27 12:50:08 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS_FILES = philo.c	\
 				parser.c	\
 				thread_function.c	\
 				utils.c	\
-				moniter_function.c
+				monitor_function.c
 SRCS_DIR = .
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 OBJS_DIR = objs/

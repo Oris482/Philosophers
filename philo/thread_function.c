@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:51:02 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/23 22:40:58 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:51:02 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	try_to_eat(t_philo_args *arg)
 		return (FINISH);
 	}
 	smart_sleep(time_to_eat);
+	arg->eat_counter++;
 	pthread_mutex_unlock(&arg->fork[LEFT]->mutex);
 	pthread_mutex_unlock(&arg->fork[RIGHT]->mutex);
 	return (SUCCESS);
@@ -65,12 +66,14 @@ void	*run_philo(void *args)
 	arg->last_meal = arg->simul_info->begin;
 	pthread_mutex_unlock(&arg->simul_info->mutex);
 	if (arg->my_num % 2 == 0)
-		usleep(DELAY * 3);
+		usleep(DELAY * 4);
 	while (42)
 	{
 		if (try_to_eat(arg) == FINISH)
 			return (NULL);
 		if (time_to_sleep(arg) == FINISH)
+			return (NULL);
+		if (time_to_think(arg) == FINISH)
 			return (NULL);
 	}
 	return (NULL);

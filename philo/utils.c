@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:54:37 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/23 22:29:50 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:45:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@ void	smart_sleep(size_t delay)
 time_t	get_timestamp(struct timeval begin)
 {
 	struct timeval	now;
-	time_t			over_sec;
-	suseconds_t		over_usec;
 
 	gettimeofday(&now, NULL);
-	over_sec = now.tv_sec - begin.tv_sec;
-	over_usec = now.tv_usec - begin.tv_usec;
-	return ((over_sec * 1000) + (over_usec / 1000));
+	return ((now.tv_sec - begin.tv_sec) * 1000 + \
+				(now.tv_usec - begin.tv_usec) / 1000);
 }
 
 int	exit_with_msg(int err_code, char *err_msg, t_philo *philos, t_fork *forks)

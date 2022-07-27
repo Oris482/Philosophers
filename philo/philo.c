@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:02:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/23 22:28:44 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:00:42 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	make_philos(t_philo *philos, t_fork *forks, t_simul_info *simul_info)
 	{
 		philos[idx].args.my_num = idx + 1;
 		philos[idx].args.simul_info = simul_info;
+		pthread_mutex_init(&forks[idx].mutex, NULL);
 		philos[idx].args.fork[LEFT] = &forks[idx];
 		philos[idx].args.fork[RIGHT] = &forks[(idx + 1) % num_philos];
 		simul_info->finish_flag = pthread_create(&philos[idx].thread_id, NULL, \
@@ -67,6 +68,6 @@ int	main(int argc, char *argv[])
 		exit_with_msg(simul_info.finish_flag, "Error : thread_create\n", \
 						philos, forks);
 	gettimeofday(&simul_info.begin, NULL);
-	moniter_philos(philos, &simul_info);
+	monitor_philos(philos, &simul_info);
 	return (wait_join_threads(philos, forks, &simul_info));
 }

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:03:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/23 22:00:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:50:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	*run_philo(void *args);
 time_t	get_timestamp(struct timeval begin);
 int		print_message(t_philo_args *arg, char *msg);
 void	smart_sleep(size_t delay);
-void	moniter_philos(t_philo *philos, t_simul_info *simul_info);
+void	monitor_philos(t_philo *philos, t_simul_info *simul_info);
 
 #endif
