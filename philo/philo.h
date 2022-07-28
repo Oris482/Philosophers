@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:03:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/27 12:50:01 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/28 22:38:14 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define LEFT 0
 # define RIGHT 1
 
-# define DELAY 500
+# define DELAY 400
 
 typedef struct mutex_test
 {

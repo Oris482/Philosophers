@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:51:02 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/27 13:51:02 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/28 22:40:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*run_philo(void *args)
 	arg->last_meal = arg->simul_info->begin;
 	pthread_mutex_unlock(&arg->simul_info->mutex);
 	if (arg->my_num % 2 == 0)
-		usleep(DELAY * 4);
+		usleep(DELAY * 25);
 	while (42)
 	{
 		if (try_to_eat(arg) == FINISH)

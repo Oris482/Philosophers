@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:54:37 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/27 13:45:27 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/07/28 22:37:55 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	smart_sleep(size_t delay)
 
 	gettimeofday(&begin, NULL);
 	while (42)
+	{
 		if (get_timestamp(begin) >= delay)
 			return ;
+		usleep(DELAY * 2);
+	}
 }
 
 time_t	get_timestamp(struct timeval begin)
