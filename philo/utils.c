@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:54:37 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:39:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:58:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	smart_sleep(time_t delay)
 	{
 		if (get_timestamp(begin) >= delay)
 			return ;
-		usleep(DELAY * 2);
+		usleep(DELAY);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:51:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:39:35 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:57:56 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ static void	_initialize_begin_time(t_philo *philos, const size_t num_philos, \
 	}
 }
 
-void	monitor_philos(t_philo *philos, t_simul_info *simul_info)
+void	monitor_philos(t_philo *philos, t_simul_info *simul_info, \
+						pthread_mutex_t *start_flag_mutex)
 {
 	const size_t			num_philos = simul_info->option.num_philos;
 	const time_t			time_to_die = simul_info->option.time_to_die;
-	const size_t			times_eat_limited = \
-								simul_info->option.times_eat_limited;
+	const size_t			limited_eat = simul_info->option.limited_eat;
 	const size_t			times_must_eat = simul_info->option.times_must_eat;
 	size_t					idx;
 
@@ -95,14 +95,15 @@ void	monitor_philos(t_philo *philos, t_simul_info *simul_info)
 		pthread_mutex_unlock(&philos[idx].args.start_flag_mutex);
 		idx++;
 	}
+	free(start_flag_mutex);
 	smart_sleep(time_to_die);
 	while (42)
 	{
 		if (_check_dead(philos, num_philos, time_to_die) == FINISH)
 			break ;
-		if (times_eat_limited && _check_full(philos, num_philos, \
+		if (limited_eat && _check_full(philos, num_philos, \
 												times_must_eat) == FINISH)
 			break ;
-		usleep(DELAY * 2);
+		usleep(DELAY * 3);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 11:51:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 14:47:36 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:54:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	parse_arguments(int argc, char *argv[], t_option *option)
 		if (argc == 6)
 		{
 			option->times_must_eat = _ft_atoul(argv[5]);
-			option->times_eat_limited = 1UL;
+			option->limited_eat = 1UL;
 		}
 		if (_check_arguments(option) == SUCCESS)
 			return (SUCCESS);

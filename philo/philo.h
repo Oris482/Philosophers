@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:03:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:37:42 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:58:07 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define LEFT 0
 # define RIGHT 1
 
-# define DELAY 500
+# define DELAY 500L
 
 typedef struct s_option
 {
@@ -49,7 +49,7 @@ typedef struct s_option
 	time_t	time_to_die;
 	time_t	time_to_eat;
 	time_t	time_to_sleep;
-	size_t	times_eat_limited;
+	size_t	limited_eat;
 	size_t	times_must_eat;
 }	t_option;
 
@@ -92,7 +92,8 @@ void	*run_philo(void *args);
 time_t	get_timestamp(struct timeval begin);
 int		print_message(t_philo_args *arg, char *msg, struct timeval *last_meal);
 void	smart_sleep(time_t delay);
-void	monitor_philos(t_philo *philos, t_simul_info *simul_info);
+void	monitor_philos(t_philo *philos, t_simul_info *simul_info, \
+						pthread_mutex_t *start_flag_mutex);
 
 time_t	spe_timestamp(struct timeval begin, struct timeval now);
 

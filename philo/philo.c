@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:02:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:19:19 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:53:59 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,13 @@ int	wait_join_threads(t_philo *philos, t_fork *forks, t_simul_info *simul_info)
 	return (SUCCESS);
 }
 
-int	make_philos(t_philo *philos, t_fork *forks, t_simul_info *simul_info)
+int	make_philos(t_philo *philos, t_fork *forks, t_simul_info *simul_info, \
+				pthread_mutex_t *start_flag_mutex)
 {
 	size_t			idx;
 	const size_t	num_philos = simul_info->option.num_philos;
-	pthread_mutex_t	*start_flag_mutex;
 
 	idx = 0;
-	start_flag_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-						* num_philos);
 	while (idx < num_philos)
 	{
 		philos[idx].args.my_num = idx + 1;
@@ -61,6 +59,7 @@ int	main(int argc, char *argv[])
 	t_philo			*philos;
 	t_fork			*forks;
 	t_simul_info	simul_info;
+	pthread_mutex_t	*start_flag_mutex;
 
 	memset(&simul_info, 0, sizeof(t_simul_info));
 	if (parse_arguments(argc, argv, &simul_info.option) == ERROR)
@@ -71,13 +70,15 @@ int	main(int argc, char *argv[])
 				NULL, NULL));
 	philos = (t_philo *)malloc(sizeof(t_philo) * simul_info.option.num_philos);
 	forks = (t_fork *)malloc(sizeof(t_fork) * simul_info.option.num_philos);
+		start_flag_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+						* simul_info.option.num_philos);
 	if (philos == NULL || forks == NULL)
 		return (exit_with_msg(ERROR, "Error : malloc\n", philos, forks));
 	pthread_mutex_init(&simul_info.mutex, NULL);
 	pthread_mutex_lock(&simul_info.mutex);
-	if (make_philos(philos, forks, &simul_info) == ERROR)
+	if (make_philos(philos, forks, &simul_info, start_flag_mutex) == ERROR)
 		exit_with_msg(simul_info.finish_flag, "Error : thread_create\n", \
 						philos, forks);
-	monitor_philos(philos, &simul_info);
+	monitor_philos(philos, &simul_info, start_flag_mutex);
 	return (wait_join_threads(philos, forks, &simul_info));
 }
