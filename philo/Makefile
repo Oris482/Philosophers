@@ -6,13 +6,13 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 19:04:01 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/07/27 12:50:08 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/02 15:31:19 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
-CFLAGS = -g
+# CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 LDFLAGS = -fsanitize=thread -g
 RM = rm -f
 

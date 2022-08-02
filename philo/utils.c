@@ -6,13 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:54:37 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/28 22:37:55 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:39:32 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-void	smart_sleep(size_t delay)
+void	smart_sleep(time_t delay)
 {
 	struct timeval	begin;
 
@@ -30,8 +30,14 @@ time_t	get_timestamp(struct timeval begin)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	return ((now.tv_sec - begin.tv_sec) * 1000 + \
-				(now.tv_usec - begin.tv_usec) / 1000);
+	return (((now.tv_sec - begin.tv_sec) * 1000) + \
+				((now.tv_usec - begin.tv_usec) / 1000));
+}
+
+time_t	spe_timestamp(struct timeval begin, struct timeval now)
+{
+	return (((now.tv_sec - begin.tv_sec) * 1000) + \
+				((now.tv_usec - begin.tv_usec) / 1000));
 }
 
 int	exit_with_msg(int err_code, char *err_msg, t_philo *philos, t_fork *forks)
@@ -44,7 +50,7 @@ int	exit_with_msg(int err_code, char *err_msg, t_philo *philos, t_fork *forks)
 	return (err_code);
 }
 
-int	print_message(t_philo_args *arg, char *msg)
+int	print_message(t_philo_args *arg, char *msg, struct timeval *last_meal)
 {
 	time_t	timestamp;
 
@@ -54,6 +60,8 @@ int	print_message(t_philo_args *arg, char *msg)
 		pthread_mutex_unlock(&arg->simul_info->mutex);
 		return (FINISH);
 	}
+	if (last_meal != NULL)
+		gettimeofday(last_meal, NULL);
 	timestamp = get_timestamp(arg->simul_info->begin);
 	printf("%ld %lu %s\n", timestamp, arg->my_num, msg);
 	pthread_mutex_unlock(&arg->simul_info->mutex);

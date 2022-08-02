@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:51:02 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/07/28 22:40:32 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:40:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 int	time_to_think(t_philo_args *arg)
 {
-	if (print_message(arg, "is thinking") == FINISH)
+	if (print_message(arg, "is thinking", NULL) == FINISH)
 		return (FINISH);
-	usleep(DELAY * 2);
+	usleep(DELAY);
 	return (SUCCESS);
 }
 
 int	time_to_sleep(t_philo_args *arg)
 {
-	const size_t	time_to_die = arg->simul_info->option.time_to_die;
-	const size_t	time_to_sleep = arg->simul_info->option.time_to_sleep;
+	const time_t	time_to_sleep = arg->simul_info->option.time_to_sleep;
 	struct timeval	time_fall_in_sleep;
 
 	gettimeofday(&time_fall_in_sleep, NULL);
-	if (print_message(arg, "is sleeping") == FINISH)
+	if (print_message(arg, "is sleeping", NULL) == FINISH)
 		return (FINISH);
 	smart_sleep(time_to_sleep);
 	return (SUCCESS);
@@ -35,26 +34,29 @@ int	time_to_sleep(t_philo_args *arg)
 
 int	try_to_eat(t_philo_args *arg)
 {
-	const size_t	time_to_eat = arg->simul_info->option.time_to_eat;
+	const time_t	time_to_eat = arg->simul_info->option.time_to_eat;
+	const size_t	first_try = arg->my_num % 2 == 0;
+	const size_t	second_try = arg->my_num % 2 != 0;
 
-	pthread_mutex_lock(&arg->fork[LEFT]->mutex);
-	if (print_message(arg, "has taken a fork") == FINISH)
+	pthread_mutex_lock(&arg->fork[first_try]->mutex);
+	if (print_message(arg, "has taken a fork", NULL) == FINISH)
 	{
-		pthread_mutex_unlock(&arg->fork[LEFT]->mutex);
+		pthread_mutex_unlock(&arg->fork[first_try]->mutex);
 		return (FINISH);
 	}
-	pthread_mutex_lock(&arg->fork[RIGHT]->mutex);
-	gettimeofday(&arg->last_meal, NULL);
-	if (print_message(arg, "is eating") == FINISH)
+	pthread_mutex_lock(&arg->fork[second_try]->mutex);
+	if (print_message(arg, "is eating", &arg->last_meal) == FINISH)
 	{
-		pthread_mutex_unlock(&arg->fork[LEFT]->mutex);
-		pthread_mutex_unlock(&arg->fork[RIGHT]->mutex);
+		pthread_mutex_unlock(&arg->fork[first_try]->mutex);
+		pthread_mutex_unlock(&arg->fork[second_try]->mutex);
 		return (FINISH);
 	}
+	// printf("%ld %ld start to sleep\n", get_timestamp(arg->simul_info->begin), arg->my_num);
 	smart_sleep(time_to_eat);
+	// printf("%ld %ld end sleep\n", get_timestamp(arg->simul_info->begin), arg->my_num);
 	arg->eat_counter++;
-	pthread_mutex_unlock(&arg->fork[LEFT]->mutex);
-	pthread_mutex_unlock(&arg->fork[RIGHT]->mutex);
+	pthread_mutex_unlock(&arg->fork[first_try]->mutex);
+	pthread_mutex_unlock(&arg->fork[second_try]->mutex);
 	return (SUCCESS);
 }
 
@@ -62,11 +64,11 @@ void	*run_philo(void *args)
 {
 	t_philo_args *const	arg = args;
 
-	pthread_mutex_lock(&arg->simul_info->mutex);
-	arg->last_meal = arg->simul_info->begin;
-	pthread_mutex_unlock(&arg->simul_info->mutex);
+	pthread_mutex_lock(&arg->start_flag_mutex);
+	pthread_mutex_unlock(&arg->start_flag_mutex);
+	free(&arg->start_flag_mutex);
 	if (arg->my_num % 2 == 0)
-		usleep(DELAY * 25);
+		usleep(DELAY * 20);
 	while (42)
 	{
 		if (try_to_eat(arg) == FINISH)
