@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:02:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:53:59 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:36:36 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ int	main(int argc, char *argv[])
 		return (exit_with_msg(ERROR, "Error : arguments\n", NULL, NULL));
 	if (simul_info.option.num_philos < 2)
 		return (exit_with_msg(ERROR, \
-				"Error : The number of philosophers must be at least two\n", \
-				NULL, NULL));
+				"Error : At least two of philosophers\n", NULL, NULL));
 	philos = (t_philo *)malloc(sizeof(t_philo) * simul_info.option.num_philos);
 	forks = (t_fork *)malloc(sizeof(t_fork) * simul_info.option.num_philos);
 		start_flag_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 						* simul_info.option.num_philos);
 	if (philos == NULL || forks == NULL)
 		return (exit_with_msg(ERROR, "Error : malloc\n", philos, forks));
-	pthread_mutex_init(&simul_info.mutex, NULL);
+	if (pthread_mutex_init(&simul_info.mutex, NULL) != SUCCESS)
+		exit_with_msg(ERROR, "Error: Mutex init\n", philos, forks);
 	pthread_mutex_lock(&simul_info.mutex);
 	if (make_philos(philos, forks, &simul_info, start_flag_mutex) == ERROR)
 		exit_with_msg(simul_info.finish_flag, "Error : thread_create\n", \

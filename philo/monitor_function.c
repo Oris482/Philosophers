@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:51:01 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:57:56 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/02 20:30:27 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,16 @@ void	monitor_philos(t_philo *philos, t_simul_info *simul_info, \
 	while (idx < num_philos)
 	{
 		pthread_mutex_unlock(&philos[idx].args.start_flag_mutex);
+		pthread_mutex_destroy(&(philos[idx].args.start_flag_mutex));
 		idx++;
 	}
 	free(start_flag_mutex);
 	smart_sleep(time_to_die);
 	while (42)
 	{
-		if (_check_dead(philos, num_philos, time_to_die) == FINISH)
-			break ;
-		if (limited_eat && _check_full(philos, num_philos, \
-												times_must_eat) == FINISH)
+		if ((_check_dead(philos, num_philos, time_to_die) == FINISH) || \
+			(limited_eat && _check_full(philos, num_philos, \
+										times_must_eat) == FINISH))
 			break ;
 		usleep(DELAY * 3);
 	}
