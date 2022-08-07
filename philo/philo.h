@@ -6,19 +6,19 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:03:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:58:07 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 02:19:13 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h>     //printf
-# include <string.h>    //memset
-# include <stdlib.h>    //malloc, free
-# include <unistd.h>    //write, usleep
-# include <sys/time.h>  //gettimeofday
-# include <pthread.h>   //pthread function
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
 
 # define ERROR -1
 # define SUCCESS 0
@@ -94,7 +94,4 @@ int		print_message(t_philo_args *arg, char *msg, struct timeval *last_meal);
 void	smart_sleep(time_t delay);
 void	monitor_philos(t_philo *philos, t_simul_info *simul_info, \
 						pthread_mutex_t *start_flag_mutex);
-
-time_t	spe_timestamp(struct timeval begin, struct timeval now);
-
 #endif

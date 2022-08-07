@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:56:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:44:51 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 03:00:10 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static int	_wait_for_philo(t_option *option, t_public_sem *public_sem, \
 	int				exit_code;
 	size_t			idx;
 
+	idx = 0;
+	while (idx++ < num_philos)
+		sem_post(public_sem->sem_start);
 	waitpid(-1, &status, 0);
 	exit_code = ((status >> 8) & (0x0000ff));
 	idx = 0;
@@ -52,11 +55,8 @@ static int	_wait_for_philo(t_option *option, t_public_sem *public_sem, \
 	return (exit_code);
 }
 
-static void	_init_philo_args(size_t	idx, t_philo_args *philo_args)
+static void	_init_philo_args(size_t	idx, t_philo_args *philo_args, struct timeval now)
 {
-	struct timeval	now;
-
-	gettimeofday(&now, NULL);
 	philo_args->my_num = idx + 1;
 	philo_args->last_meal = now;
 	philo_args->begin = now;
@@ -68,11 +68,13 @@ static int	_fork_philos(pid_t *pid_list, t_philo_args *philo_args)
 {
 	const size_t	num_philos = philo_args->option->num_philos;
 	size_t			idx;
+	struct timeval	now;
 
+	gettimeofday(&now, NULL);
 	idx = 0;
 	while (idx < num_philos)
 	{
-		_init_philo_args(idx, philo_args);
+		_init_philo_args(idx, philo_args, now);
 		pid_list[idx] = fork();
 		if (pid_list[idx] == ERROR)
 			return (_kill_remain_philos(pid_list, idx));

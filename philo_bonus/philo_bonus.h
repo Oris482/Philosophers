@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:53:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:50:58 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 02:56:17 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_option
 
 typedef struct s_public_sem
 {
+	sem_t	*sem_start;
 	sem_t	*sem_forks;
 	sem_t	*sem_table;
 	sem_t	*sem_end;

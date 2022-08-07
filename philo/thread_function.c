@@ -6,13 +6,13 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:51:02 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:57:23 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 02:00:26 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philo.h"
 
-int	time_to_think(t_philo_args *arg)
+static int	_time_to_think(t_philo_args *arg)
 {
 	if (print_message(arg, "is thinking", NULL) == FINISH)
 		return (FINISH);
@@ -20,19 +20,17 @@ int	time_to_think(t_philo_args *arg)
 	return (SUCCESS);
 }
 
-int	time_to_sleep(t_philo_args *arg)
+static int	_time_to_sleep(t_philo_args *arg)
 {
 	const time_t	time_to_sleep = arg->simul_info->option.time_to_sleep;
-	struct timeval	time_fall_in_sleep;
 
-	gettimeofday(&time_fall_in_sleep, NULL);
 	if (print_message(arg, "is sleeping", NULL) == FINISH)
 		return (FINISH);
 	smart_sleep(time_to_sleep);
 	return (SUCCESS);
 }
 
-int	try_to_eat(t_philo_args *arg)
+static int	_try_to_eat(t_philo_args *arg)
 {
 	const time_t	time_to_eat = arg->simul_info->option.time_to_eat;
 	const size_t	first_try = arg->my_num % 2 == 0;
@@ -68,11 +66,11 @@ void	*run_philo(void *args)
 		usleep(DELAY * 30);
 	while (42)
 	{
-		if (try_to_eat(arg) == FINISH)
+		if (_try_to_eat(arg) == FINISH)
 			return (NULL);
-		if (time_to_sleep(arg) == FINISH)
+		if (_time_to_sleep(arg) == FINISH)
 			return (NULL);
-		if (time_to_think(arg) == FINISH)
+		if (_time_to_think(arg) == FINISH)
 			return (NULL);
 	}
 	return (NULL);

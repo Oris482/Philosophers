@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 00:05:39 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:42:50 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 02:52:46 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	unlink_all_sem(void)
 	int	ret;
 
 	ret = 0;
+	ret |= sem_unlink("sem_start");
 	ret |= sem_unlink("sem_forks");
 	ret |= sem_unlink("sem_table");
 	ret |= sem_unlink("sem_end");
@@ -49,6 +50,7 @@ int	close_all_sem(t_public_sem *public_sem)
 	int	ret;
 
 	ret = 0;
+	ret |= sem_close(public_sem->sem_start);
 	ret |= sem_close(public_sem->sem_forks);
 	ret |= sem_close(public_sem->sem_table);
 	ret |= sem_close(public_sem->sem_end);
@@ -59,6 +61,8 @@ int	close_all_sem(t_public_sem *public_sem)
 sem_t	*init_all_sem(t_public_sem *public_sem, size_t num_philos)
 {
 	unlink_all_sem();
+	public_sem->sem_forks = sem_open("sem_start", O_CREAT | O_EXCL, \
+									S_IRUSR | S_IWUSR, 0);
 	public_sem->sem_forks = sem_open("sem_forks", O_CREAT | O_EXCL, \
 									S_IRUSR | S_IWUSR, num_philos);
 	public_sem->sem_table = sem_open("sem_table", O_CREAT | O_EXCL, \

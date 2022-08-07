@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:34:51 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:44:08 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 03:01:44 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int	run_philo(t_philo_args *arg)
 	make_sem_sync_name(sem_sync, arg->my_num);
 	sem_unlink(sem_sync);
 	arg->sem_sync = sem_open(sem_sync, O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
+	sem_wait(arg->public_sem->sem_start);
+	// gettimeofday(&arg->begin, NULL);
+	// gettimeofday(&arg->last_meal, NULL);
 	if (arg->sem_sync == SEM_FAILED)
 		return (ERROR);
 	if (pthread_create(&time_monitor, NULL, check_philo_die, arg))
