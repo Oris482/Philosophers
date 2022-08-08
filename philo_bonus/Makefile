@@ -6,13 +6,13 @@
 #    By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 19:04:01 by jaesjeon          #+#    #+#              #
-#    Updated: 2022/08/08 02:35:36 by jaesjeon         ###   ########.fr        #
+#    Updated: 2022/08/08 17:05:49 by jaesjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# LDFLAGS = -fsanitize=address
+# LDFLAGS = -fsanitize=thread -g
 RM = rm -f
 
 NAME = philo_bonus
@@ -40,10 +40,10 @@ $(OBJS_DIR):
 $(OBJS): $(HEADER) | $(OBJS_DIR)
 
 $(addprefix $(OBJS_DIR), %.o): %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) -O2 $< -o $@
 
 $(NAME): $(OBJS)
-	$(CC) $(LDFLAGS) $^ -I$(HEADER_DIR) -o $(NAME)
+	$(CC) $(LDFLAGS) -O2 $^ -I$(HEADER_DIR) -o $(NAME)
 
 clean:
 	$(RM) -r $(OBJS_DIR)
