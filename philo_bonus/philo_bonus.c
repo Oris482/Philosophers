@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:56:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 03:00:10 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 16:43:53 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int	_wait_for_philo(t_option *option, t_public_sem *public_sem, \
 	return (exit_code);
 }
 
-static void	_init_philo_args(size_t	idx, t_philo_args *philo_args, struct timeval now)
+static void	_init_philo_args(size_t	idx, t_philo_args *philo_args, \
+								struct timeval now)
 {
 	philo_args->my_num = idx + 1;
 	philo_args->last_meal = now;

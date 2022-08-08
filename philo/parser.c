@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 11:51:30 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:54:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/08 16:42:35 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	_check_arguments(t_option *option)
 	if (option->num_philos == ERRORUL || option->time_to_die == ERRORL || \
 		option->time_to_eat == ERRORL || option->time_to_sleep == ERRORL || \
 		option->times_must_eat == ERRORUL)
+		return (ERROR);
+	if (option->limited_eat == 1UL && option->times_must_eat == 0)
 		return (ERROR);
 	return (SUCCESS);
 }
