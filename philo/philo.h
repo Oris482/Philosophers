@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:03:17 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:19:13 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:22:09 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 # define LMAX 9223372036854775807L
 # define LMAXHEAD 922337203685477580L
 # define LMAXTAIL 7L
-
-# define NOTSPECIFIED 0
 
 # define LEFT 0
 # define RIGHT 1

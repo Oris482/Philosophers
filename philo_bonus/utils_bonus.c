@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 22:53:12 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 01:51:16 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:22:47 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void	exit_with_msg(int err_code, char *err_msg, \
 	if (for_free != NULL)
 		free(for_free);
 	if (public_sem)
-	{
 		close_all_sem(public_sem);
-		unlink_all_sem();
-	}
 	printf("%s", err_msg);
 	exit(err_code);
 }

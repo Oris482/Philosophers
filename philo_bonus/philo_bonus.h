@@ -6,29 +6,26 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:53:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:56:17 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:24:49 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
-# include <stdio.h>     //printf
-# include <string.h>    //memset
-# include <stdlib.h>    //malloc, free
-# include <unistd.h>    //write, usleep
-# include <sys/time.h>  //gettimeofday
-# include <pthread.h>	//pthread
-# include <semaphore.h> //sem
-# include <signal.h>	//signal
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <semaphore.h>
+# include <signal.h>
 
 # define ERROR -1
 # define SUCCESS 0
 # define ERRORUL -1UL
 # define ERRORL -1L
-
-# define CONTINUE 0
-# define FINISH 1
 
 # define ULMAX 18446744073709551615UL
 # define ULMAXHEAD 1844674407370955161UL
@@ -37,8 +34,6 @@
 # define LMAX 9223372036854775807L
 # define LMAXHEAD 922337203685477580L
 # define LMAXTAIL 7L
-
-# define NOTSPECIFIED 0
 
 # define PHILO 0
 

@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:35:03 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 02:42:09 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:22:25 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	*check_philos_full(void *monitor_args)
 		sem_wait(arg->public_sem->sem_full);
 		idx++;
 	}
+	sem_wait(arg->public_sem->sem_end);
 	kill(arg->target_pid, SIGTERM);
+	printf("Everybody full\n");
 	return (NULL);
 }
 

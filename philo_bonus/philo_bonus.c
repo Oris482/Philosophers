@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:56:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/08 16:43:53 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:41:20 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	_wait_for_philo(t_option *option, t_public_sem *public_sem, \
 			waitpid(pid_list[idx], &status, 0);
 		idx++;
 	}
-	while (idx--)
+	while (option->limited_eat && idx--)
 		sem_post(public_sem->sem_full);
 	pthread_join(*full_monitor, NULL);
 	close_all_sem(public_sem);
@@ -96,6 +96,8 @@ int	main(int argc, char *argv[])
 
 	if (parse_arguments(argc, argv, &option) == ERROR)
 		exit_with_msg(ERROR, "Error: Argument\n", NULL, NULL);
+	if (option.num_philos < 2)
+		exit_with_msg(ERROR, "Error : At least 2 philo\n", NULL, NULL);
 	if (init_all_sem(&public_sem, option.num_philos) == SEM_FAILED)
 		exit_with_msg(ERROR, "Error: Semaphore\n", NULL, &public_sem);
 	pid_list = (int *)malloc(sizeof(int) * option.num_philos);
