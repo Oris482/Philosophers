@@ -69,7 +69,7 @@ int	main(int argc, char *argv[])
 				"Error : At least two of philosophers\n", NULL, NULL));
 	philos = (t_philo *)malloc(sizeof(t_philo) * simul_info.option.num_philos);
 	forks = (t_fork *)malloc(sizeof(t_fork) * simul_info.option.num_philos);
-		start_flag_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+	start_flag_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 						* simul_info.option.num_philos);
 	if (philos == NULL || forks == NULL)
 		return (exit_with_msg(ERROR, "Error : malloc\n", philos, forks));
