@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 22:02:42 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/12 18:41:19 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:01:16 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char *argv[])
 		return (exit_with_msg(ERROR, "Error : arguments\n", NULL, NULL));
 	if (simul_info.option.num_philos < 2)
 		return (exit_with_msg(ERROR, \
-				 "Error : At least 2 philo\n", NULL, NULL));
+				"Error : At least 2 philo\n", NULL, NULL));
 	philos = (t_philo *)malloc(sizeof(t_philo) * simul_info.option.num_philos);
 	forks = (t_fork *)malloc(sizeof(t_fork) * simul_info.option.num_philos);
 	start_flag_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
