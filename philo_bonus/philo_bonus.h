@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:53:19 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/12 18:24:49 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:50:38 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 # include <pthread.h>
 # include <semaphore.h>
 # include <signal.h>
@@ -86,6 +87,7 @@ int		run_philo(t_philo_args *arg);
 time_t	get_timestamp(struct timeval begin);
 void	make_sem_sync_name(char *target_name, size_t suffix);
 void	print_message(t_philo_args *arg, char *msg);
+int		get_exit_status(int status);
 void	smart_sleep(time_t delay);
 void	*check_philo_die(void *philo_args);
 void	*check_philos_full(void *monitor_args);

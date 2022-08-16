@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 22:53:12 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/12 18:22:47 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:59:05 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ void	print_message(t_philo_args *arg, char *msg)
 	timestamp = get_timestamp(arg->begin);
 	printf("%ld %lu %s\n", timestamp, arg->my_num, msg);
 	sem_post(arg->public_sem->sem_end);
+}
+
+int	get_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (WTERMSIG(status));
+	else if (WIFSTOPPED(status))
+		return (WSTOPSIG(status));
+	else if (WIFCONTINUED(status))
+		return (WSTOPSIG(status));
+	else
+		return (SUCCESS);
 }

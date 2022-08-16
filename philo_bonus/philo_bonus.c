@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 20:56:04 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/12 18:41:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:51:01 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static int	_wait_for_philo(t_option *option, t_public_sem *public_sem, \
 	idx = 0;
 	while (idx++ < num_philos)
 		sem_post(public_sem->sem_start);
-	waitpid(-1, &status, 0);
-	exit_code = ((status >> 8) & (0x0000ff));
+	waitpid(-1, &status, WUNTRACED | WCONTINUED);
+	exit_code = get_exit_status(status);
 	idx = 0;
 	while (idx < num_philos)
 	{
@@ -51,7 +51,7 @@ static int	_wait_for_philo(t_option *option, t_public_sem *public_sem, \
 		sem_post(public_sem->sem_full);
 	pthread_join(*full_monitor, NULL);
 	close_all_sem(public_sem);
-	unlink_all_sem();
+	free(pid_list);
 	return (exit_code);
 }
 
