@@ -6,7 +6,7 @@
 /*   By: jaesjeon <jaesjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:54:37 by jaesjeon          #+#    #+#             */
-/*   Updated: 2022/08/02 19:58:20 by jaesjeon         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:20:11 by jaesjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@ time_t	get_timestamp(struct timeval begin)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	return (((now.tv_sec - begin.tv_sec) * 1000) + \
-				((now.tv_usec - begin.tv_usec) / 1000));
-}
-
-time_t	spe_timestamp(struct timeval begin, struct timeval now)
-{
 	return (((now.tv_sec - begin.tv_sec) * 1000) + \
 				((now.tv_usec - begin.tv_usec) / 1000));
 }
